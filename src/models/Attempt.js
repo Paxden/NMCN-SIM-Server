@@ -1,0 +1,22 @@
+import mongoose from "mongoose";
+
+const attemptSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
+    seed: { type: Number, required: true },
+    status: { type: String, enum: ["in_progress", "submitted"], default: "in_progress" },
+    startedAt: { type: Date, default: Date.now },
+    finishedAt: Date,
+    // Everything below is computed by the server from the logged actions.
+    overall: Number,
+    level: String,
+    passed: Boolean,
+    mustPassMet: Boolean,
+    profile: [{ _id: false, area: String, score: Number }],
+    standard: mongoose.Schema.Types.Mixed,
+    tasks: [mongoose.Schema.Types.Mixed], // graded result + raw actions per task
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("Attempt", attemptSchema);
