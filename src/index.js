@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import attemptRoutes from "./routes/attempts.js";
 import adminRoutes from "./routes/admin.js";
+import osceRoutes from "./routes/osce.js";
 
 for (const k of ["MONGO_URI", "JWT_SECRET"]) {
   if (!process.env[k]) {
@@ -28,6 +29,7 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/attempts", attemptRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/osce", osceRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);
